@@ -57,6 +57,12 @@ DATABASES = {
 # CORS — only the production frontend
 # =============================================================================
 
+# =============================================================================
+# LangChain / LangGraph — RAG vector store & checkpoint database
+# =============================================================================
+
+PGVECTOR_CONNECTION_STRING = config("PGVECTOR_CONNECTION_STRING")
+
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="").split(",")
 
