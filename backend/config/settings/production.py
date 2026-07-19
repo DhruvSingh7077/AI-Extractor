@@ -3,6 +3,7 @@
 from .base import *  # noqa: F401,F403
 from decouple import config  # noqa: F811
 from datetime import timedelta  # noqa: F811
+import dj_database_url
 
 # =============================================================================
 # Security — Production Hardening
@@ -37,20 +38,28 @@ CSRF_COOKIE_SAMESITE = "Lax"
 # Database
 # =============================================================================
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": config("DB_NAME"),
+#         "USER": config("DB_USER"),
+#         "PASSWORD": config("DB_PASSWORD"),
+#         "HOST": config("DB_HOST"),
+#         "PORT": config("DB_PORT", default="5432"),
+#         "OPTIONS": {
+#             "sslmode": "require",
+#         },
+#         "CONN_MAX_AGE": 60,
+#         "CONN_HEALTH_CHECKS": True,
+#     }
+# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT", default="5432"),
-        "OPTIONS": {
-            "sslmode": "require",
-        },
-        "CONN_MAX_AGE": 60,
-        "CONN_HEALTH_CHECKS": True,
-    }
+    "default": dj_database_url.config(
+        env="DATABASE_URL",
+        conn_max_age=60,
+        conn_health_checks=True,
+        ssl_require=True,
+    )
 }
 
 # =============================================================================
