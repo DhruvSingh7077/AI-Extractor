@@ -138,6 +138,25 @@ ADMIN_URL = config("DJANGO_ADMIN_URL", default="chatbot-admin/")
 CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND")
 
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "visibility_timeout": 3600,
+    "max_retries": 3,
+}
+
+CELERY_RESULT_BACKEND_TRANSPORT_OPTIONS = {
+    "retry_policy": {
+        "timeout": 5.0,
+        "max_retries": 3,
+    }
+}
+
 # =============================================================================
 # Logging — production
 # =============================================================================
