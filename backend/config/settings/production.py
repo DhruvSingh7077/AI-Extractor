@@ -23,6 +23,9 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+# Whitenoise: don't crash collectstatic over a missing vendored .js.map
+# source-map file — those are optional debugging aids, not required assets.
+WHITENOISE_MANIFEST_STRICT = False
 
 # Session cookies
 SESSION_COOKIE_SECURE = True
