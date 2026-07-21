@@ -159,7 +159,23 @@ CELERY_RESULT_BACKEND_TRANSPORT_OPTIONS = {
         "max_retries": 3,
     }
 }
+# =============================================================================
+# Caching — Upstash only supports database 0, override base.py's db=1 setting
+# =============================================================================
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": config("REDIS_URL"),
+        "OPTIONS": {
+            "socket_timeout": 5,
+            "socket_connect_timeout": 5,
+            "retry_on_timeout": True,
+            "max_connections": 100,
+        },
+        "KEY_PREFIX": "nlp_playground",
+    },
+}
 # =============================================================================
 # Logging — production
 # =============================================================================
