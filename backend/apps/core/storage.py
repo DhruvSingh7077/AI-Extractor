@@ -3,12 +3,16 @@ from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 class NonStrictManifestStaticFilesStorage(CompressedManifestStaticFilesStorage):
     """
-    Same as whitenoise's CompressedManifestStaticFilesStorage, but doesn't
-    raise a hard error when a file (e.g. a vendored .js references a
-    .js.map source map that isn't present in the repo) can't be found
-    during collectstatic. manifest_strict is a class attribute Django's
-    ManifestStaticFilesStorage checks internally — it is NOT a constructor
-    kwarg, so it must be set this way rather than via STORAGES["OPTIONS"].
+    Same as whitenoise's storage, but skips any file whose post-processing
+    fails (e.g. a vendored .js/.css referencing a .map file that isn't
+    actually shipped in the package) instead of crashing the whole
+    collectstatic run. This catches ALL such cases at once, rather than
+    needing a stub file for every individual missing reference.
     """
 
-    manifest_strict = False
+    def post_process(self, *args, **kwargs):
+        files = super().post_process(*args, **kwargs)
+        for name, hashed_name, processed in files:
+            if isinstance(processed, Exception):
+                continue
+            yield name, hashed_name, processed
