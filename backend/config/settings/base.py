@@ -170,7 +170,7 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "config.storage.NonStrictManifestStaticFilesStorage",
+        "BACKEND": "apps.core.storage.NonStrictManifestStaticFilesStorage",
     },
 }
 
