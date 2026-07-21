@@ -74,6 +74,7 @@ DATABASES = {
 # =============================================================================
 
 PGVECTOR_CONNECTION_STRING = config("PGVECTOR_CONNECTION_STRING")
+PG_CHECKPOINT_URI = config("PG_CHECKPOINT_URI")
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="").split(",")
