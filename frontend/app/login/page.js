@@ -30,8 +30,10 @@ export default function LoginPage() {
     console.log('LOGIN RESPONSE:', data)
 
     // Backend returns data.tokens.access inside data.data
-    const token = data?.data?.tokens?.access
-    const user = data?.data?.user
+    // const token = data?.data?.tokens?.access
+    // const user = data?.data?.user
+    const token = data?.tokens?.access
+const user = data?.user
 
     if (!token) {
       throw new Error('No access token returned from server')
@@ -74,8 +76,10 @@ export default function LoginPage() {
       last_name: form.last_name,
     })
 
-    const token = data?.data?.tokens?.access
-    const user = data?.data?.user
+    // const token = data?.data?.tokens?.access
+    // const user = data?.data?.user
+    const token = data?.tokens?.access
+const user = data?.user
 
     if (!token) {
       throw new Error('No access token returned from server')
