@@ -32,8 +32,8 @@ export default function LoginPage() {
     // Backend returns data.tokens.access inside data.data
     // const token = data?.data?.tokens?.access
     // const user = data?.data?.user
-    const token = data?.tokens?.access
-const user = data?.user
+   const token = data?.data?.tokens?.access || data?.tokens?.access
+const user = data?.data?.user || data?.user
 
     if (!token) {
       throw new Error('No access token returned from server')
@@ -78,8 +78,8 @@ const user = data?.user
 
     // const token = data?.data?.tokens?.access
     // const user = data?.data?.user
-    const token = data?.tokens?.access
-const user = data?.user
+    const token = data?.tokens?.access || data?.data?.tokens?.access
+const user = data?.user || data?.data?.user
 
     if (!token) {
       throw new Error('No access token returned from server')
